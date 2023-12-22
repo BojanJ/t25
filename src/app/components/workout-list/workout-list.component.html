@@ -1,0 +1,11 @@
+<div>
+  <ng-container *ngFor="let week of schedule.schedule">
+    <h2 class="text-xl p-3 font-extrabold dark:text-gray-300 flex bg-gray-700">
+      Week {{ week.week }}
+      <span class="text-md font-normal ml-auto text-gray-500">1/7</span>
+    </h2>
+    <div *ngFor="let workout of week.workouts" class="p-3">
+      <app-workout-item #workoutItem [workout]="workout"></app-workout-item>
+    </div>
+  </ng-container>
+</div>
