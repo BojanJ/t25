@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
@@ -11,6 +11,15 @@ import { WorkoutListComponent } from './components/workout-list/workout-list.com
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 't25';
+export class AppComponent implements AfterViewInit {
+
+  @ViewChild('headerComponent', { read: ElementRef })
+  headerComponent!: ElementRef;
+
+  headerHeight: number = 0;
+
+  ngAfterViewInit() {
+    this.headerHeight = this.headerComponent.nativeElement.offsetHeight;
+    console.log('this.headerHeight: ', this.headerHeight);
+  }
 }

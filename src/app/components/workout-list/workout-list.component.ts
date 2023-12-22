@@ -2,40 +2,38 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { ALPHA_SCHEDULE } from '../../data/alpha-schedule';
 import { WorkoutItemComponent } from '../workout-item/workout-item.component';
+import { WorkoutWeekComponent } from '../workout-week/workout-week.component';
 
 @Component({
   selector: 'app-workout-list',
   standalone: true,
-  imports: [CommonModule, WorkoutItemComponent],
+  imports: [CommonModule, WorkoutWeekComponent],
   templateUrl: './workout-list.component.html',
   styleUrl: './workout-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutListComponent {
-  @ViewChildren(WorkoutItemComponent)
-  workoutItems!: QueryList<WorkoutItemComponent>;
+  @ViewChildren(WorkoutWeekComponent)
+  weekComponents!: QueryList<WorkoutWeekComponent>;
   schedule = ALPHA_SCHEDULE;
 
   ngAfterViewInit() {
-    this.scrollToScheduledWorkout();
+    this.scrollToScheduledWeek();
   }
 
-  scrollToScheduledWorkout() {
-    const scheduledWorkoutIndex = this.workoutItems
-      .toArray()
-      .findIndex((item) => item.workout.value === 'scheduled');
-    if (scheduledWorkoutIndex > 0) {
-      const previousWorkoutItem =
-        this.workoutItems.toArray()[scheduledWorkoutIndex - 1];
-      previousWorkoutItem.elementRef.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
+  scrollToScheduledWeek() {
+    const scheduledWeekComponent = this.weekComponents.find((weekComponent) =>
+      weekComponent.week.workouts.some(
+        (workout) => workout.value === 'scheduled'
+      )
+    );
+    scheduledWeekComponent?.elementRef.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+    });
   }
 }

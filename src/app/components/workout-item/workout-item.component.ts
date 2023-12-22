@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-} from '@angular/core';
-import { Workout } from '../../models/workout';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Workout } from '../../models/workout';
 
 @Component({
   selector: 'app-workout-item',
@@ -19,6 +14,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class WorkoutItemComponent {
   @Input()
   workout!: Workout;
-
-  constructor(public elementRef: ElementRef) {}
 }
