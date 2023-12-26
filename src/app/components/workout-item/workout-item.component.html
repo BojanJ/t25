@@ -13,7 +13,7 @@
     <p
       class="ml-auto text-xs text-gray-400"
       [ngClass]="{ 'line-through': workout.value !== 'scheduled' }"
-      (click)="workout.value = 'scheduled'"
+      (click)="workout.value = 'scheduled'; onWorkoutChange()"
     >
       Day {{ workout.day }}
     </p>
@@ -28,6 +28,7 @@
         class="hidden peer"
         required
         [(ngModel)]="workout.value"
+        (ngModelChange)="onWorkoutChange()"
       />
       <label
         [for]="'nailed' + workout.id"
@@ -48,6 +49,7 @@
         class="hidden peer"
         required
         [(ngModel)]="workout.value"
+        (ngModelChange)="onWorkoutChange()"
       />
       <label
         [for]="'barely' + workout.id"
@@ -68,6 +70,7 @@
         class="hidden peer"
         required
         [(ngModel)]="workout.value"
+        (ngModelChange)="onWorkoutChange()"
       />
       <label
         [for]="'skipped' + workout.id"
